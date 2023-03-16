@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosClient = axios.create({
-    baseURL:`${import.meta.env.API_BASE_URL}/api`
+    baseURL:`${process.env.API_BASE_URL}/api`
 })
 
 axiosClient.interceptors.request.use((config) => {
