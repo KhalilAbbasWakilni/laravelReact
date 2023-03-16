@@ -28,7 +28,7 @@ const DefaultLayout = () => {
                 <div>Header</div>
                 <div>
                     {user.name}
-                    <a href='' onClick={handleLogout} className='btn-logout'>Logout</a>
+                    <a href='/' onClick={handleLogout} className='btn-logout'>Logout</a>
                 </div>
                 
             </header>
