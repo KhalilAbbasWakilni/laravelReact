@@ -16,13 +16,13 @@ const Signup = () => {
 
     const handleSignup = (e) => {
         e.preventDefault();
-        const newUser = {
+        const payload = {
             name: nameRef.current.value,
             email: emailRef.current.value,
             password: passwordRef.current.value,
             password_confirmation: passwordConfirmationRef.current.value,
         }
-        axiosClient.post('/signup' , newUser)
+        axiosClient.post('/signup' , payload)
         .then(({data} )=> {
             setUser(data.user);
             setToken(data.token);
