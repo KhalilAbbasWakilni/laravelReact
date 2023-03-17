@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { Link } from 'react-router-dom';
 import axiosClient from '../axios-client';
 import { useStateContext } from '../contexts/ContextProvider';
@@ -9,6 +9,8 @@ const Signup = () => {
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmationRef = useRef();
+
+    const [errors , setErrors] = useState(null);
     
     const {setUser , setToken} = useStateContext();
 
@@ -26,8 +28,8 @@ const Signup = () => {
             setToken(data.token);
         }).catch(err => {
             const response = err.response;
-            if(response && response.status === 433) {
-                console.log(response.data.errors);
+            if(response && response.status === 422) {
+                setErrors(response.data.errors);
             }
         })
     }
@@ -38,6 +40,11 @@ const Signup = () => {
         <div className='form'>
             <form onSubmit={handleSignup}>
                 <h1 className='title'>Create An Account</h1>
+                {errors && <div className='alert'>
+                {Object.keys(errors).map(key => (
+                            <p key={key}>{errors[key][0]}</p>
+                        ))}
+                </div>}
                 <input ref={nameRef} type='text' placeholder='Full name'/>
                 <input ref={emailRef} type='email' placeholder='Email'/>
                 <input ref={passwordRef} type='password' placeholder='Password'/>
